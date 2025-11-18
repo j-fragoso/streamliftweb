@@ -1,89 +1,29 @@
-<<<<<<< HEAD
 # semana11_webapp.py
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-# ====== Título y secciones ======
-st.title("Semana 11 - Interfaz de Modelos")
-st.header("Dashboard Interactivo")
-st.subheader("Explora tus modelos y datos")
+# ======= Título y secciones =======
+st.title("WebApp Interactiva - Semana 11")
+st.header("Sección de Control del Modelo")
+st.subheader("Configuración del modelo")
 
-st.write("Aquí puedes probar distintos modelos, configurar parámetros y visualizar resultados.")
+st.write("Aquí puedes configurar tu modelo y parámetros para la inferencia.")
 
-# ====== Inputs de usuario ======
-# Nombre del modelo
-model_name = st.text_input("Nombre del modelo", "MiModelo")
-
-# Selección de modelo
-model_type = st.selectbox("Selecciona un modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
-
-# Slider de threshold con valores correctos
+# ======= Inputs de usuario =======
+name = st.text_input("Nombre del modelo", "MiModelo")
+options = st.selectbox("Elige un tipo de modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
 threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
-
-# Botón para ejecutar la inferencia
 run_button = st.button("Ejecutar inferencia")
 
-# ====== Mostrar resultados aleatorios (ejemplo) ======
-# Generamos un DataFrame de ejemplo
-df = pd.DataFrame(np.random.randn(20, 3), columns=["A", "B", "C"])
+# ======= Generación de datos de ejemplo =======
+df = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
-st.write("## Datos de ejemplo")
+st.subheader("Datos y visualización")
 st.dataframe(df)
 st.line_chart(df)
 
-# ====== Mensaje personalizado ======
-user_name = st.text_input("Escribe tu nombre", "Jordi")
-user_age = st.slider("Tu edad", 0, 100, 32)
-st.write(f"Hola {user_name}, tienes {user_age} años y estás usando el modelo {model_name} ({model_type}) con un umbral de {threshold}.")
-
-# ====== Acción del botón ======
+# ======= Mensaje de ejecución =======
 if run_button:
-    st.success(f"Inferencia ejecutada para el modelo {model_name} ({model_type}) con threshold {threshold}.")
-    # Aquí puedes agregar la llamada a tu modelo si tienes uno
-=======
-# semana11_webapp.py
-import streamlit as st
-import pandas as pd
-import numpy as np
+    st.success(f"Inferencia ejecutada para el modelo {name} ({options}) con umbral {threshold}")
 
-# ====== Título y secciones ======
-st.title("Semana 11 - Interfaz de Modelos")
-st.header("Dashboard Interactivo")
-st.subheader("Explora tus modelos y datos")
-
-st.write("Aquí puedes probar distintos modelos, configurar parámetros y visualizar resultados.")
-
-# ====== Inputs de usuario ======
-# Nombre del modelo
-model_name = st.text_input("Nombre del modelo", "MiModelo")
-
-# Selección de modelo
-model_type = st.selectbox("Selecciona un modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
-
-# Slider de threshold con valores correctos
-threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
-
-# Botón para ejecutar la inferencia
-run_button = st.button("Ejecutar inferencia")
-
-# ====== Mostrar resultados aleatorios (ejemplo) ======
-# Generamos un DataFrame de ejemplo
-df = pd.DataFrame(np.random.randn(20, 3), columns=["A", "B", "C"])
-
-st.write("## Datos de ejemplo")
-st.dataframe(df)
-st.line_chart(df)
-
-# ====== Mensaje personalizado ======
-user_name = st.text_input("Escribe tu nombre", "Jordi")
-user_age = st.slider("Tu edad", 0, 100, 32)
-st.write(f"Hola {user_name}, tienes {user_age} años y estás usando el modelo {model_name} ({model_type}) con un umbral de {threshold}.")
-
-# ====== Acción del botón ======
-if run_button:
-    st.success(f"Inferencia ejecutada para el modelo {model_name} ({model_type}) con threshold {threshold}.")
-    # Aquí puedes agregar la llamada a tu modelo si tienes uno
-
-
->>>>>>> 4d11488756361e27c83e840022fb8fd929371bc4
