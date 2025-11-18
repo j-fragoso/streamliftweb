@@ -1,80 +1,44 @@
 # semana11_webapp.py
 import streamlit as st
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
-import torch
+import pandas as pd
+import numpy as np
 
-# ====== Configuración de la página ======
-st.set_page_config(
-    page_title="Asignación #11: Interacción con GPT-2",
-    page_icon="🤖",
-    layout="centered"
-)
+# ====== Título y secciones ======
+st.title("Semana 11 - Interfaz de Modelos")
+st.header("Dashboard Interactivo")
+st.subheader("Explora tus modelos y datos")
 
-# ====== Estilo CSS ======
-st.markdown("""
-<style>
-body {
-    background-color: #f5f5f5;
-    font-family: 'Arial', sans-serif;
-}
-h1 {
-    color: #4B0082;
-    text-align: center;
-}
-.stButton>button {
-    background-color: #4B0082;
-    color: white;
-    font-size: 16px;
-    border-radius: 8px;
-    padding: 8px 16px;
-}
-.stTextInput>div>input {
-    border-radius: 8px;
-    padding: 8px;
-}
-</style>
-""", unsafe_allow_html=True)
+st.write("Aquí puedes probar distintos modelos, configurar parámetros y visualizar resultados.")
 
-# ====== Título ======
-st.title("Interacción con GPT-2 📚")
+# ====== Inputs de usuario ======
+# Nombre del modelo
+model_name = st.text_input("Nombre del modelo", "MiModelo")
 
-# ====== Cargar modelo ======
-@st.cache_resource
-def load_model():
-    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
-    model = GPT2LMHeadModel.from_pretrained("gpt2")
-    model.eval()
-    if torch.cuda.is_available():
-        model.to("cuda")
-    return tokenizer, model
+# Selección de modelo
+model_type = st.selectbox("Selecciona un modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
 
-tokenizer, model = load_model()
+# Slider de threshold con valores correctos
+threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
 
-# ====== Función para generar texto ======
-def generar_texto(prompt, max_length=150):
-    inputs = tokenizer.encode(prompt, return_tensors="pt")
-    if torch.cuda.is_available():
-        inputs = inputs.to("cuda")
-    with torch.no_grad():
-        outputs = model.generate(
-            inputs, 
-            max_length=max_length, 
-            do_sample=True, 
-            top_k=50, 
-            top_p=0.95,
-            pad_token_id=tokenizer.eos_token_id
-        )
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+# Botón para ejecutar la inferencia
+run_button = st.button("Ejecutar inferencia")
 
-# ====== Entrada de usuario ======
-prompt_usuario = st.text_input("Escribe tu prompt aquí:")
+# ====== Mostrar resultados aleatorios (ejemplo) ======
+# Generamos un DataFrame de ejemplo
+df = pd.DataFrame(np.random.randn(20, 3), columns=["A", "B", "C"])
 
-# ====== Botón de envío ======
-if st.button("Generar respuesta"):
-    if prompt_usuario.strip() == "":
-        st.warning("Por favor, escribe un prompt antes de enviar.")
-    else:
-        with st.spinner("Generando respuesta..."):
-            resultado = generar_texto(prompt_usuario)
-            st.success("Respuesta generada:")
-            st.write(resultado)
+st.write("## Datos de ejemplo")
+st.dataframe(df)
+st.line_chart(df)
+
+# ====== Mensaje personalizado ======
+user_name = st.text_input("Escribe tu nombre", "Jordi")
+user_age = st.slider("Tu edad", 0, 100, 32)
+st.write(f"Hola {user_name}, tienes {user_age} años y estás usando el modelo {model_name} ({model_type}) con un umbral de {threshold}.")
+
+# ====== Acción del botón ======
+if run_button:
+    st.success(f"Inferencia ejecutada para el modelo {model_name} ({model_type}) con threshold {threshold}.")
+    # Aquí puedes agregar la llamada a tu modelo si tienes uno
+
+
