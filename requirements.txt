@@ -1,0 +1,3 @@
+git add .
+git commit -m "Preparando para Streamlit Cloud"
+git push origin main
