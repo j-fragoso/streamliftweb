@@ -52,27 +52,18 @@ st.markdown(
 )
 
 # ====== Título y secciones ======
-st.title("🌿 WebApp Interactiva - Semana 11 🌿")
+st.title("WebApp Interactiva - Semana 11")
 st.header("Control del Modelo")
 st.subheader("Configuración de parámetros")
 
-st.write("Ajusta los parámetros del modelo y visualiza los datos generados automáticamente.")
+st.write("Ajusta los parámetros del modelo y ejecuta la inferencia.")
 
-# ====== Columnas para inputs y visualización ======
-col1, col2 = st.columns([1, 1])
+# ======= Inputs de usuario =======
+name = st.text_input("Nombre del modelo", "MiModelo")
+options = st.selectbox("Tipo de modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
+threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
+run_button = st.button("Ejecutar inferencia")
 
-with col1:
-    name = st.text_input("Nombre del modelo", "MiModelo")
-    options = st.selectbox("Tipo de modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
-    threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
-    run_button = st.button("Ejecutar inferencia")
-
-with col2:
-    st.subheader("Datos y visualización")
-    df = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-    st.dataframe(df)
-    st.line_chart(df)
-
-# ====== Mensaje de ejecución ======
+# ======= Mensaje de ejecución =======
 if run_button:
     st.success(f"Inferencia ejecutada para el modelo {name} ({options}) con umbral {threshold}")
