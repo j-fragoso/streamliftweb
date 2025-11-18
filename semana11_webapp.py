@@ -20,13 +20,4 @@ run_button = st.button("Ejecutar inferencia")
 df = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
 st.subheader("Datos y visualización")
-st.dataframe(df)
-st.line_chart(df)
-
-# ======= Mensaje de ejecución =======
-if run_button:
- HEAD
-    st.success(f"Inferencia ejecutada para el modelo {name} ({options}) con umbral {threshold}")
-
-    st.success(f"Inferencia ejecutada para el modelo {name} ({options}) con umbral {threshold}")
- 90304ef (Versión final semana11 webapp)
+st.data
