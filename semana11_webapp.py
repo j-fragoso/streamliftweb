@@ -51,18 +51,28 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# ====== Título y secciones ======
+# ======= Título y secciones =======
 st.title("WebApp Interactiva - Semana 11")
 st.header("Control del Modelo")
 st.subheader("Configuración de parámetros")
 
-st.write("Ajusta los parámetros del modelo y ejecuta la inferencia.")
+st.write("Ajusta los parámetros del modelo y visualiza los datos generados automáticamente.")
 
 # ======= Inputs de usuario =======
 name = st.text_input("Nombre del modelo", "MiModelo")
 options = st.selectbox("Tipo de modelo", ["CNN", "RNN", "YOLO", "Diffusion"])
 threshold = st.slider("Umbral de confianza", 0.0, 1.0, 0.5)
 run_button = st.button("Ejecutar inferencia")
+
+# ======= Datos de ejemplo =======
+df = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
+
+# ======= Visualización =======
+st.subheader("Tabla de datos")
+st.dataframe(df)
+
+st.subheader("Gráfica de datos")
+st.line_chart(df)
 
 # ======= Mensaje de ejecución =======
 if run_button:
